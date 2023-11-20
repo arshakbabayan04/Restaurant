@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { NavLink, Outlet } from 'react-router-dom';
+import { NavLink} from 'react-router-dom';
 
 const Header: FC = () => {
 
@@ -38,7 +38,6 @@ const Header: FC = () => {
                     </div>
                 </nav>
             </header>
-            <Outlet />
         </>
     );
 }

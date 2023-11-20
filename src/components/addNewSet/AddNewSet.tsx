@@ -1,14 +1,16 @@
 import { useAppSelector, useAppDispatch } from "../../store/hooks";
 import { v4 as uuidv4 } from 'uuid';
 import { useForm } from 'react-hook-form';
-import { Set } from "../../types";
+import { Set, Food } from "../../types";
 import { addSet } from "../addNewFood/foodSlice";
+import { useMemo, useState } from "react";
 
 const AddNewSet = () => {
+    const [activeCategory, setActiveCategory] = useState<string>('');
 
     const dispatch = useAppDispatch()
 
-    const { foods } = useAppSelector(state => state.food);
+    const { foods, categories } = useAppSelector(state => state.food);
 
     const {
         register,
@@ -27,6 +29,16 @@ const AddNewSet = () => {
             dispatch(addSet(data))
         }
     }
+
+    const filteredFoods: Food[] = useMemo(() => {
+        if (activeCategory !== '') {
+            return foods.filter((elm) => 
+            elm.category.toLowerCase() === activeCategory?.toLowerCase())
+        }
+
+        return foods;
+    }, 
+    [activeCategory])
 
     return (
         <>
@@ -56,17 +68,30 @@ const AddNewSet = () => {
                             )}
 
                         </div>
-                        <ul className="text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                        
+                        <h3 className="mb-2 font-semibold text-gray-900">Set Food Category</h3>
+                        <ul className="items-center w-full text-sm mb-5 font-medium text-gray-900 bg-white border border-gray-300 rounded-lg sm:flex">
+                            {categories.map((elm) => 
+                                <li key={elm.id} className="w-full border-b border-gray-200 sm:border-b-0 sm:border-r">
+                                    <div className="flex items-center ps-3">
+                                        <input onChange={(e) => setActiveCategory(e.target.value)} id="horizontal-list-radio-license" type="radio" value={elm.name} name="list-radio" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 "/>
+                                        <label htmlFor="horizontal-list-radio-license" className="w-full py-3 ms-2 text-sm font-medium text-gray-900">{elm.name}</label>
+                                    </div>
+                                </li>
+                            )}
+                        </ul>
 
-                            {foods.map((el) =>
-                                <li key={el.id} className="w-full border-b border-gray-200 rounded-t-lg dark:border-gray-600">
+                        <ul className="text-sm font-medium text-black-600 bg-white border border-gray-200 rounded-lg">
+
+                            {filteredFoods.map((el) =>
+                                <li key={el.id} className="w-full border-b border-gray-200 rounded-t-lg">
                                     <div className="flex items-center ps-3">
                                         <input id="vue-checkbox" type="checkbox" value={el.id} className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
                                             {...register('foods', {
                                                 required: "Field is required",
                                             })} />
 
-                                        <label htmlFor="vue-checkbox" className="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">{el.name}</label>
+                                        <label htmlFor="vue-checkbox" className="w-full py-3 ms-2 text-sm font-medium text-gray-900">{el.name}</label>
                                     </div>
                                 </li>
                             )}

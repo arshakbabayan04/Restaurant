@@ -6,19 +6,19 @@ import Home from "../home/Home";
 import AddNewFood from "../addNewFood/AddNewFood";
 import AddNewSet from "../addNewSet/AddNewSet";
 import ShowAllSet from "../showAllSet/ShowAllSet";
+import SingleSet from "../singleSet/SingleSet";
 
 const App: FC = () => {
 	return (
 		<>
 			<Router>
-
+				<Header />
 				<Routes>
-					<Route path="/" element={<Header />}>
-						<Route path="" element={<Home />} />
-						<Route path="addfood" element={<AddNewFood />} />
-						<Route path="addset" element={<AddNewSet />} />
-						<Route path="allset" element={<ShowAllSet />} />
-					</Route>
+						<Route path="/" element={<Home />} />
+						<Route path="/addfood" element={<AddNewFood />} />
+						<Route path="/addset" element={<AddNewSet />} />
+						<Route path="/allset" element={<ShowAllSet />} />
+						<Route path="/set/:id" element={<SingleSet />} />
 				</Routes>
 			</Router>
 		</>

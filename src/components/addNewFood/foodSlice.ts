@@ -28,7 +28,7 @@ const initialState: foodState = {
             name: 'Cola',
             price: '10',
             descr: 'Very nice sweet',
-            category: 'sweet'
+            category: 'drink'
         },
 
     ],
@@ -47,6 +47,11 @@ const initialState: foodState = {
         }
     ],
     sets: [
+        {
+            id: '1',
+            name: 'Fire',
+            foods: ['Bounty, Cola']
+        }
 
     ]
 }
