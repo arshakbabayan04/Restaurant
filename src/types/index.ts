@@ -4,6 +4,7 @@ export interface Food {
     price: string;
     descr: string;
     category: string;
+    checked?:boolean
 }
 
 export interface Category {

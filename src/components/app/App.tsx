@@ -9,20 +9,20 @@ import ShowAllSet from "../showAllSet/ShowAllSet";
 import SingleSet from "../singleSet/SingleSet";
 
 const App: FC = () => {
-	return (
-		<>
-			<Router>
-				<Header />
-				<Routes>
-						<Route path="/" element={<Home />} />
-						<Route path="/addfood" element={<AddNewFood />} />
-						<Route path="/addset" element={<AddNewSet />} />
-						<Route path="/allset" element={<ShowAllSet />} />
-						<Route path="/set/:id" element={<SingleSet />} />
-				</Routes>
-			</Router>
-		</>
-	);
-}
+  return (
+    <>
+      <Router>
+        <Header />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/addfood" element={<AddNewFood />} />
+          <Route path="/addset" element={<AddNewSet />} />
+          <Route path="/allset" element={<ShowAllSet />} />
+          <Route path="/set/:id" element={<SingleSet />} />
+        </Routes>
+      </Router>
+    </>
+  );
+};
 
 export default App;
